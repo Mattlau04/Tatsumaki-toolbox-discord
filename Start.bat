@@ -1,8 +1,14 @@
-@setlocal enableextensions disabledelayedexpansion
+@setlocal enableextensions
+@setlocal EnableDelayedExpansion
 @echo off
 if NOT EXIST tokens.txt echo. 2>tokens.txt
 FOR /F "usebackq" %%A IN ('tokens.txt') DO set TOKENsize=%%~zA
 if %TOKENsize% EQU 0 goto notokens
+set "cmd=findstr /R /N "^^" tokens.txt | find /C ":""
+for /f %%a in ('!cmd!') do set linetokens=%%a
+if %linetokens% GEQ 250 echo That's a lot of tokens, be careful as it may lag your computer
+if %linetokens% GEQ 250 echo press any key to continue
+if %linetokens% GEQ 250 pause > NUL
 for /f "delims=" %%x in (Config.txt) do (set "%%x")
 cls
 
