@@ -12,9 +12,33 @@ if %linetokens% GEQ 250 pause > NUL
 for /f "delims=" %%x in (Config.txt) do (set "%%x")
 cls
 
+:mainmenu:
+cls
+echo #=============================#
+echo + Mattlau's tatsumaki toolbox +
+echo #=============================#
+echo.
+echo 1. Mass bot menu
+echo 2. Self bot menu
+echo 3. Exit
+echo.
+set /P mainmenu=Where do you wanna go? 
+if %mainmenu% EQU 1 goto choosemethod
+if %mainmenu% EQU 2 goto selfbotmenu
+if %mainmenu% EQU 3 exit
+cls
+echo invalid value :/
+Timeout /T 2 > NUL
+cls
+goto mainmenu
+
 :choosemethod:
 cls
-echo What do you want to do?
+echo #===============#
+echo + Mass bot menu +
+echo #===============#
+echo 0. go back
+echo.
 echo 1. Collect daily
 echo 2. Collect rep
 echo 3. Get cookies
@@ -22,7 +46,7 @@ echo 4. Transfer all the money to your account (take long, a little less than 10
 echo 5. Make the tokens join a server (not working, use raid toolbox to make them join)
 echo.
 set /P what=type the number of the method you want: 
-if %what% EQU debug goto debug
+if %what% EQU 0 goto mainmenu
 if %what% EQU 1 goto epicdaily
 if %what% EQU 2 goto epicrep
 if %what% EQU 3 goto epiccookies
@@ -30,7 +54,7 @@ if %what% EQU 4 goto epicmoney
 if %what% EQU 5 goto joinserver
 cls
 echo invalid value :/
-Timeout /T 3 /NOBREAK > NUL
+Timeout /T 2 > NUL
 cls
 goto choosemethod
 
@@ -56,6 +80,35 @@ cls
 set /P invite=Invite to the server the tokens should join (ex: 5wVPkk):
 for /F "tokens=*" %%A in (tokens.txt) do start /wait /min python "%cd%\Scripts\joiner.py" "%invite%" "%%A"
 goto choosemethod
+
+:selfbotmenu:
+cls
+echo #===============#
+echo + Self bot menu +
+echo #===============#
+echo 0. go back
+echo.
+echo 1. Fish farmer
+echo 2. Train tatsugotchi
+echo.
+set /P selfbotmenu=type the number of the method you want: 
+if %selfbotmenu% EQU 0 goto mainmenu
+if %selfbotmenu% EQU 1 goto epicfish
+if %selfbotmenu% EQU 2 goto epictgtrain
+cls
+echo invalid value :/
+Timeout /T 2 > NUL
+cls
+goto selfbotmenu
+
+:epicfish:
+start cmd /K python "%cd%\Scripts\Fish.py" %mytoken% %channelid%
+goto selfbotmenu
+
+:epictgtrain:
+start cmd /K python "%cd%\Scripts\Tgtrain.py" %mytoken% %channelid%
+goto selfbotmenu
+
 
 :notokens:
 cls

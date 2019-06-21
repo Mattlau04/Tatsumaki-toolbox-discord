@@ -19,7 +19,7 @@ async def on_ready():
     except Exception as e:
         print(e)
         print("closing...")
-    quit()
+    quit() #Btw this is coded by Mattlau04
 
 try:
     client.run(token, bot=False)
