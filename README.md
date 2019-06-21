@@ -17,7 +17,7 @@
 
 **Fish farmer**
 
-**Tatsugotchi trainer*
+**Tatsugotchi trainer**
 
 
 # Setup
