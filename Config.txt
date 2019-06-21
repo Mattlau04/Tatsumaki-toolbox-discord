@@ -4,5 +4,8 @@ userid=123456789
 #Channel id to send the messages
 channelid=123456789
 
+#The token for your main account (to fish and to train your pet)
+mytoken=urtokenhere
+
 #Python executable name (if you don't know what it is, leave by default)
 pythonexe=python.exe
