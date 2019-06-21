@@ -1,0 +1,8 @@
+#User id to give rep and daily
+userid=561599066719518740
+
+#Channel id to send the messages
+channelid=564453422930198573
+
+#Python executable name (if you don't know what it is, leave by default)
+pythonexe=python.exe
