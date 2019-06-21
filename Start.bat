@@ -11,6 +11,7 @@ if %linetokens% GEQ 250 echo press any key to continue
 if %linetokens% GEQ 250 pause > NUL
 for /f "delims=" %%x in (Config.txt) do (set "%%x")
 cls
+if %mytoken% EQU urtokenhere goto nomytoken
 
 :mainmenu:
 cls
@@ -114,6 +115,15 @@ goto selfbotmenu
 cls
 echo You don't have any tokens in tokens.txt
 echo go add some and run the script again
+echo.
+echo press any key to exit
+pause > NUL
+exit
+
+:nomytoken:
+cls
+echo You don't have your token in your config file
+echo go add it
 echo.
 echo press any key to exit
 pause > NUL
