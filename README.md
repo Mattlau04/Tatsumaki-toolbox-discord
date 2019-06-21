@@ -1,9 +1,9 @@
 # Tatsumaki-discord-farmer
 /!\ I made this to train on discord.py , but it's against tatsumaki and discord TOS, so use at your own risk
 
-### Features:
+## Features:
 
-## `With multiple bots accounts:`
+### `With multiple bots accounts:`
 
 **Collect daily**
 
@@ -13,7 +13,7 @@
 
 **Money transferer**
 
-## `With your account:`
+### `With your account:`
 
 **Fish farmer**
 
