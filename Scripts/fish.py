@@ -141,6 +141,8 @@ async def on_ready():
         if int(howmanytrashsell) >= int(minimumtosell):
             print("selling garbage...")
             await txtchan.send("t!fish sell garbage")
+            howmanytrashsell = 0
+            await asyncio.sleep(float(str(random.randint(6,9)) + "." + str(random.randint(1337,9999))))
         isleeplol = random.randint(30,35)
         print('')
         await asyncio.sleep(float("0." + str(random.randint(1337,9999))))
