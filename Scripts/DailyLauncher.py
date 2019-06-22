@@ -8,6 +8,7 @@ client = discord.Client()
 userid = str(sys.argv[1])
 channelid = str(sys.argv[2])
 winpy = str(sys.argv[3])
+os.pardir
 print("loading tokens...")
 tokenlist = open("tokens.txt").read().splitlines()
 print("Starting subprocess...")

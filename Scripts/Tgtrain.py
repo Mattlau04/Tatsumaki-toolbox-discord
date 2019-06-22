@@ -16,9 +16,11 @@ token = sys.argv[1]
 txtchanid = sys.argv[2]
 msgcontent = ['t!pet train', 't!pets train', 't!tg train', 't!tatsugotchi train']
 waitratelimit = 'False'
+print("loading...")
 
 @client.event
 async def on_ready():
+    os.system('cls')
     veryepicpfp = client.user.avatar
     print ("Logged in")
     print ("=================")
@@ -26,7 +28,22 @@ async def on_ready():
     while True:
         if waitratelimit == 'False':
             await txtchan.send(random.choice(msgcontent))
-            await asyncio.sleep(float(str(random.randint(11,13)) + "." + str(random.randint(1337,9999))))
+            waitforhowlong = int(str(random.randint(12,15)))
+            asyncio.sleep(float(str("0." + str(random.randint(1337,9999)))))
+            for count in reversed(range(1, waitforhowlong+1)):
+                totalsf = successnum + failnum
+                os.system('cls')
+                print("#=====================#")
+                print("+ Tatsugotchi trainer +")
+                print("#=====================#")
+                print('')
+                print("successes: " + str(successnum))
+                print("Failed: " + str(failnum))
+                print("% of success: " + str(percentage(successnum, totalsf)))
+                print("Exp gained: " + str(totalexpgained))
+                print('')
+                print(str(count) + " Seconds until next training")
+                await asyncio.sleep(1)
         else:
             await asyncio.sleep(float(str("0.") + str(random.randint(1337,9999))))
 
@@ -60,22 +77,15 @@ async def on_message(message):
                         totalexpgained = totalexpgained + int(exgained)
                 elif embed.author.name == "Try again!":
                     failnum = failnum + 1
-        totalsf = successnum + failnum
-        os.system('cls')
-        print("#=====================#")
-        print("+ Tatsugotchi trainer +")
-        print("#=====================#")
-        print('')
-        print("successes: " + str(successnum))
-        print("Failed: " + str(failnum))
-        print("% of success: " + str(percentage(successnum, totalsf)))
-        print("Exp gained: " + str(totalexpgained))
+            totalsf = successnum + failnum
         if "<:no:390511503238758400>  |  **" + client.user.name + "**, **please wait" in message.content:
             print("-------------------------------")
             print("You got a " + owourratelimited[-3] + " seconds rate limit")
 
 def percentage(part, whole):
     if whole == 0:
+        return 0
+    elif part == 0:
         return 0
     else:
         return 100 * float(part)/float(whole)

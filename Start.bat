@@ -6,9 +6,9 @@ FOR /F "usebackq" %%A IN ('tokens.txt') DO set TOKENsize=%%~zA
 if %TOKENsize% EQU 0 goto notokens
 set "cmd=findstr /R /N "^^" tokens.txt | find /C ":""
 for /f %%a in ('!cmd!') do set linetokens=%%a
-if %linetokens% GEQ 250 echo That's a lot of tokens, be careful as it may lag your computer
-if %linetokens% GEQ 250 echo press any key to continue
-if %linetokens% GEQ 250 pause > NUL
+if %linetokens% GEQ 50 echo That's a lot of tokens, be careful as it may lag your computer or even make the script not work at all
+if %linetokens% GEQ 50 echo press any key to continue
+if %linetokens% GEQ 50 pause > NUL
 for /f "delims=" %%x in (Config.txt) do (set "%%x")
 cls
 if %mytoken% EQU urtokenhere goto nomytoken
@@ -103,7 +103,7 @@ cls
 goto selfbotmenu
 
 :epicfish:
-start cmd /K python "%cd%\Scripts\Fish.py" %mytoken% %channelid%
+start cmd /K python "%cd%\Scripts\Fish.py" %mytoken% %channelid% %minimumsellfish%
 goto selfbotmenu
 
 :epictgtrain:

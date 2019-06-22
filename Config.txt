@@ -4,6 +4,9 @@ userid=123456789
 #Channel id to send the messages
 channelid=123456789
 
+#the minimum number of an item you must have for it to be sold
+minimumsellfish=20
+
 #The token for your main account (to fish and to train your pet)
 mytoken=urtokenhere
 
