@@ -11,6 +11,8 @@
 
 **Get cookies**
 
+**XP and Credits farmer**
+
 **Money transferer**
 
 ### `With your account:`
@@ -18,6 +20,10 @@
 **Fish farmer**
 
 **Tatsugotchi trainer**
+
+**XP and Credits farmer**
+
+**Custom pet getter**
 
 
 # Setup
