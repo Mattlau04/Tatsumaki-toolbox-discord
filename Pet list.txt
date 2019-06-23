@@ -1,0 +1,52 @@
+Pictures of what the pets look like are in pet list.png
+Also, the bots will auto stop if you get a legendary, bc they are rare af
+
+Common (60%):
+Tabby Cat
+Persian Cat
+Turkish Van Cat
+Ragdoll Cat
+British Shorthair Cat
+Labrador Retriever
+Golden Retriever
+Weimaraner
+Boxer
+Beagle
+Mourning Dove
+Northern Cardinal
+Green Painted Bunting 
+Mountain Bluebird 
+Blue Jay
+
+Uncommon (25%):
+Peony Cat
+Dandelion Cat
+Spooky Cat
+Chocolate Milk Dog
+Earl Grey Dog
+Nimbostratus Dog
+Ash Bird
+Orange Creamsicle Bird
+Virginia Rose Bird
+Pastel Green Bird
+Pastel Green Cat
+Pastel Green Dog
+Pastel Blue Bird
+Pastel Blue Cat
+Pastel Blue Dog
+
+Rare (14%):
+Pure Bird
+Bomb Pop Dog
+Midnight Cat
+Riptide Bird
+Yin Yang Dog
+Sunset Cat
+Pastel Pink Bird
+Pastel Pink Cat
+Pastel Pink Dog
+
+Legendary (1%):
+Gold Cat
+Gold Dog
+Gold Bird

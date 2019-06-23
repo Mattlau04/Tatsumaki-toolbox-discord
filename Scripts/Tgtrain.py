@@ -13,6 +13,7 @@ failnum = 0
 exgained = 0
 totalexpgained = 0
 totalsf = 0
+questcompleted = 0
 token = sys.argv[1]
 txtchanid = sys.argv[2]
 msgcontent = ['t!pet train', 't!pets train', 't!tg train', 't!tatsugotchi train']
@@ -44,15 +45,15 @@ async def on_ready():
                     estimatedmsglvlupsuccess = int(XPuntillvlup) / float(averageXPbySuccess)
                 except Exception:
                     estimatedmsglvlupsuccess = "Unkwown until we get a success message"
-                try:
-                    if totalsf > 100:
-                        estimatedmsglvlup = int(estimatedmsglvlupsuccess) * int((int(totalsf) / int(successnum)))
-                    else:
-                        estimatedmsglvlup = int(estimatedmsglvlupsuccess) / float(0.35)
-                        if estimatedmsglvlup == 0:
-                            estimatedmsglvlup = 1
-                except Exception:
-                    estimatedmsglvlup = "Unkwown until we get a success message"
+                # try:
+                    # if totalsf > 100:
+                        # estimatedmsglvlup = int(estimatedmsglvlupsuccess) * int((int(totalsf) / int(successnum)))
+                    # else:
+                        # estimatedmsglvlup = int(estimatedmsglvlupsuccess) * int(100 / 35)
+                        # if estimatedmsglvlup == 0:
+                            # estimatedmsglvlup = 1
+                # except Exception:
+                    # estimatedmsglvlup = "Unkwown until we get a success message"
                 try:
                     estimatedmsglvluparondi = ceil(estimatedmsglvlup)
                 except Exception:
@@ -74,13 +75,14 @@ async def on_ready():
                 print("Level gained: " + str(levelgained))
                 print("Total XP: " + str(totalXP))
                 print("XP until level up: " + str(XPuntillvlup))
+                print("Quests completed: " + str(questcompleted))
                 print('')
                 if averageXPbySuccess == "Unkwown until we get a success message":
                     print("Average XP gained by success: " + str(averageXPbySuccess))
                 else:
                     print("Average XP gained by success: " + str(averageXPbySuccess)[:5])
                 print("Estimated number of success before leveling up: " + str(estimatedmsglvlupsuccessarondi))
-                print("Estimated number of message before leveling up: " + str(estimatedmsglvluparondi))
+                # print("Estimated number of message before leveling up: " + str(estimatedmsglvluparondi))
                 print('')
                 print("Last message: " + str(lastmessage))
                 print('')
@@ -101,6 +103,7 @@ async def on_message(message):
     global lastmessage
     global totalXP
     global XPuntillvlup
+    global questcompleted
     if message.author.id == 172002275412279296 and str(message.channel.id) == str(txtchanid):
         sentembed = message.embeds
         if "<:no:390511503238758400>  |  **" + client.user.name + "**, **please wait" in message.content and "seconds before attempting to train your" in message.content:
@@ -131,6 +134,8 @@ async def on_message(message):
                 elif embed.author.name == "Try again!":
                     lastmessage = embed.description.splitlines()[0]
                     failnum = failnum + 1
+                if "Congratulations! You have completed a quest. Check it out with `t!tatsugotchi quests`!" in embed.description:
+                    questcompleted = questcompleted + 1
             totalsf = successnum + failnum
         if "<:no:390511503238758400>  |  **" + client.user.name + "**, **please wait" in message.content:
             print("-------------------------------")

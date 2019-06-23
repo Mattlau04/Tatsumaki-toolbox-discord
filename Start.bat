@@ -10,6 +10,7 @@ if %linetokens% GEQ 50 echo That's a lot of tokens, be careful as it may lag you
 if %linetokens% GEQ 50 echo press any key to continue
 if %linetokens% GEQ 50 pause > NUL
 for /f "delims=" %%x in (Config.txt) do (set "%%x")
+set wantedpet=%wantedpet: =-_-%
 cls
 if %mytoken% EQU urtokenhere goto nomytoken
 
@@ -98,12 +99,14 @@ echo.
 echo 1. Fish farmer
 echo 2. Train tatsugotchi
 echo 3. XP and Credits farmer (it just send random messages)
+echo 4. Custom pet getter
 echo.
 set /P selfbotmenu=type the number of the method you want: 
 if %selfbotmenu% EQU 0 goto mainmenu
 if %selfbotmenu% EQU 1 goto epicfish
 if %selfbotmenu% EQU 2 goto epictgtrain
 if %selfbotmenu% EQU 3 goto epicmsgfarm
+if %selfbotmenu% EQU 4 goto getepicpets
 cls
 echo invalid value :/
 Timeout /T 2 > NUL
@@ -120,6 +123,17 @@ goto selfbotmenu
 
 :epicmsgfarm:
 start cmd /K python "%cd%\Scripts\XPcreditsfarm.py" %mytoken% %channelid%
+goto selfbotmenu
+
+:getepicpets:
+if %wantedpet% EQU None goto nopetslol
+start python "%cd%\Scripts\Getepicpets.py" %mytoken% %channelid% "%wantedpet%"
+goto selfbotmenu
+
+:nopetslol:
+echo look like u haven't set the pet you want in your config file
+echo go set it and restart the script
+pause > NUL
 goto selfbotmenu
 
 :notokens:

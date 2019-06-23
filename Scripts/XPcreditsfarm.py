@@ -14,6 +14,7 @@ token = sys.argv[1]
 txtchanid = sys.argv[2]
 lasterror = "none"
 totalwordsent = 0
+levelgained = 0
 print("loading...")
 
 @client.event
@@ -45,12 +46,20 @@ async def on_ready():
             print('')
             print("Total word sent: " + str(totalwordsent))
             print("Last word sent: " + str(msgcontent))
+            print("Level gained: " + str(levelgained))
             print('')
             if not lasterror == "none":
                 print("error while sending last message: " + str(lasterror))
                 print('')
             print(str(count) + " Seconds until next message")
             await asyncio.sleep(1)
+
+@client.event
+async def on_message(message):
+    global levelgained
+    if message.author.id == 172002275412279296 and str(message.channel.id) == str(txtchanid):
+        if "🆙  |  **" + client.user.name + " leveled up!**" in message.content:
+            levelgained = levelgained + 1
 
 try:
     client.run(token, bot=False)
