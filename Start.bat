@@ -43,16 +43,18 @@ echo.
 echo 1. Collect daily
 echo 2. Collect rep
 echo 3. Get cookies
-echo 4. Transfer all the money to your account (take long, a little less than 10 sec per account)
-echo 5. Make the tokens join a server (not working, use raid toolbox to make them join)
+echo 4. XP and Credits farmer (it just send random messages)
+echo 5. Transfer all the money to your account (take long, a little less than 10 sec per account)
+echo 6. Make the tokens join a server (not working, use raid toolbox to make them join)
 echo.
 set /P what=type the number of the method you want: 
 if %what% EQU 0 goto mainmenu
 if %what% EQU 1 goto epicdaily
 if %what% EQU 2 goto epicrep
 if %what% EQU 3 goto epiccookies
-if %what% EQU 4 goto epicmoney
-if %what% EQU 5 goto joinserver
+if %what% EQU 4 goto epicmsgfarmbots
+if %what% EQU 5 goto epicmoney
+if %what% EQU 6 goto joinserver
 cls
 echo invalid value :/
 Timeout /T 2 > NUL
@@ -69,6 +71,10 @@ goto choosemethod
 
 :epiccookies:
 start /wait /min python "%cd%\Scripts\CookieLauncher.py" %userid% %channelid% %pythonexe%
+goto choosemethod
+
+:epicmsgfarmbots:
+start cmd /K "%cd%\Scripts\XPcreditsfarmbots.bat" %userid% %channelid% %pythonexe%
 goto choosemethod
 
 :epicmoney:
@@ -91,11 +97,13 @@ echo 0. go back
 echo.
 echo 1. Fish farmer
 echo 2. Train tatsugotchi
+echo 3. XP and Credits farmer (it just send random messages)
 echo.
 set /P selfbotmenu=type the number of the method you want: 
 if %selfbotmenu% EQU 0 goto mainmenu
 if %selfbotmenu% EQU 1 goto epicfish
 if %selfbotmenu% EQU 2 goto epictgtrain
+if %selfbotmenu% EQU 3 goto epicmsgfarm
 cls
 echo invalid value :/
 Timeout /T 2 > NUL
@@ -110,6 +118,9 @@ goto selfbotmenu
 start cmd /K python "%cd%\Scripts\Tgtrain.py" %mytoken% %channelid%
 goto selfbotmenu
 
+:epicmsgfarm:
+start cmd /K python "%cd%\Scripts\XPcreditsfarm.py" %mytoken% %channelid%
+goto selfbotmenu
 
 :notokens:
 cls
