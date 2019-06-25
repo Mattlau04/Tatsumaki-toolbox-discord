@@ -8,7 +8,7 @@ channelid=123456789
 minimumsellfish=20
 
 #The pet you want in Custom pet getter (names are in pet list.txt)
-wantedpet=Midnight Cat
+wantedpet=None
 
 #The id of the person to send cookie to in cookie sender
 #(set to "Random" to give cookies to random persons)
