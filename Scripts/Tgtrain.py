@@ -14,6 +14,7 @@ exgained = 0
 totalexpgained = 0
 totalsf = 0
 questcompleted = 0
+currentlevel = "idklol"
 token = sys.argv[1]
 txtchanid = sys.argv[2]
 msgcontent = ['t!pet train', 't!pets train', 't!tg train', 't!tatsugotchi train']
@@ -73,6 +74,8 @@ async def on_ready():
                 print("% of success: " + str(percentage(successnum, totalsf))[:5])
                 print("Exp gained: " + str(totalexpgained))
                 print("Level gained: " + str(levelgained))
+                if not currentlevel == "idklol":
+                    print("Current level: " + str(currentlevel))
                 print("Total XP: " + str(totalXP))
                 print("XP until level up: " + str(XPuntillvlup))
                 print("Quests completed: " + str(questcompleted))
@@ -104,6 +107,7 @@ async def on_message(message):
     global totalXP
     global XPuntillvlup
     global questcompleted
+    global currentlevel
     if message.author.id == 172002275412279296 and str(message.channel.id) == str(txtchanid):
         sentembed = message.embeds
         if "<:no:390511503238758400>  |  **" + client.user.name + "**, **please wait" in message.content and "seconds before attempting to train your" in message.content:
@@ -121,6 +125,8 @@ async def on_message(message):
                     lastmessage = embed.description.splitlines()[0]
                     if "Congratulations! Your Tatsugotchi has reached level" in embed.description:
                         levelgained = int(levelgained) + 1
+                        epiclevel = re.findall('\d+', embed.description)
+                        currentlevel = epiclevel[-1]
                     try:
                         exgained = funkynumbe[0]
                         totalXP = funkynumbe[1]

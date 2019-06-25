@@ -6,7 +6,7 @@ client = discord.Client()
 userid = int(sys.argv[1])
 channelid = int(sys.argv[2])
 token = sys.argv[3]
-text = "t!cookie <@" + str(userid) + ">"
+text = "t!cookie " + str(userid)
 print("Loading...")
 
 @client.event

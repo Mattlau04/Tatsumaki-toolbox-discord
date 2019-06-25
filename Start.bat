@@ -100,6 +100,7 @@ echo 1. Fish farmer
 echo 2. Train tatsugotchi
 echo 3. XP and Credits farmer (it just send random messages)
 echo 4. Custom pet getter
+echo 5. Cookie sender
 echo.
 set /P selfbotmenu=type the number of the method you want: 
 if %selfbotmenu% EQU 0 goto mainmenu
@@ -107,6 +108,7 @@ if %selfbotmenu% EQU 1 goto epicfish
 if %selfbotmenu% EQU 2 goto epictgtrain
 if %selfbotmenu% EQU 3 goto epicmsgfarm
 if %selfbotmenu% EQU 4 goto getepicpets
+if %selfbotmenu% EQU 5 goto sendcookies
 cls
 echo invalid value :/
 Timeout /T 2 > NUL
@@ -127,8 +129,28 @@ goto selfbotmenu
 
 :getepicpets:
 if %wantedpet% EQU None goto nopetslol
+echo.
+echo /!\ THIS WILL REMOVE YOUR CURRENT PET /!\
+echo if you're fine with that, press any key to continue
+pause > NUL
 start python "%cd%\Scripts\Getepicpets.py" %mytoken% %channelid% "%wantedpet%"
 goto selfbotmenu
+
+:sendcookies:
+if %cookiesendertarget% EQU Prompt goto promptcookie
+if %cookiesendertarget% EQU prompt goto promptcookie
+start cmd /K python "%cd%\Scripts\Selfcookie.py" %mytoken% %channelid% %cookiesendertarget%
+goto selfbotmenu
+
+:promptcookie:
+echo.
+echo Enter the id of the person to send cookie to
+echo you can also enter "Random" to send cookie to random peoples
+echo.
+set /P cookiesendertargetprompt=Enter the id or Random: 
+start cmd /K python "%cd%\Scripts\Selfcookie.py" %mytoken% %channelid% %cookiesendertargetprompt%
+goto selfbotmenu
+
 
 :nopetslol:
 echo look like u haven't set the pet you want in your config file
