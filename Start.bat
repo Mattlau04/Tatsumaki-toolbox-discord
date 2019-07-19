@@ -22,16 +22,68 @@ echo #=============================#
 echo.
 echo 1. Mass bot menu
 echo 2. Self bot menu
-echo 3. Exit
+echo 3. Load a different config file (usefull for alts or reloading config)
+echo.
+echo 4. Exit
 echo.
 set /P mainmenu=Where do you wanna go? 
 if %mainmenu% EQU 1 goto choosemethod
 if %mainmenu% EQU 2 goto selfbotmenu
-if %mainmenu% EQU 3 exit
+if %mainmenu% EQU 3 goto loadconfig
+if %mainmenu% EQU 4 exit
 cls
 echo invalid value :/
 Timeout /T 2 > NUL
 cls
+goto mainmenu
+
+:loadconfig:
+set oldcd=%cd%
+echo.
+echo Enter the name of the config file
+echo (it can be only the name if it's in the same folder as this script or full path)
+echo.
+set /P loadconfig=Name of the config: 
+
+If NOT exist "%cd%\%loadconfig%" goto addtxt
+If %errorlevel% EQU 3 goto addtxt
+cls
+echo Loading config...
+for /f "delims=" %%x in (%loadconfig%) do (set "%%x")
+cls
+echo Loaded config!
+Timeout /T 2 > NUL
+goto mainmenu
+
+:addtxt:
+If NOT exist "%cd%\%loadconfig%.txt" goto completepath
+If %errorlevel% EQU 3 goto completepath
+cls
+echo Loading config...
+for /f "delims=" %%x in (%loadconfig%.txt) do (set "%%x")
+cls
+echo Loaded config!
+Timeout /T 2 > NUL
+goto mainmenu
+
+:completepath:
+If NOT exist "%loadconfig%" goto confignotfoundloader
+If %errorlevel% EQU 3 goto confignotfoundloader
+cls
+echo Loading config...
+for /f "delims=" %%x in (%loadconfig%) do (set "%%x")
+cls
+echo Loaded config!
+Timeout /T 2 > NUL
+goto mainmenu
+
+:confignotfoundloader:
+cls
+echo Config not found
+echo Names are case sensitive so be careful
+echo.
+echo Press any key to continue
+pause > NUL
 goto mainmenu
 
 :choosemethod:
@@ -45,8 +97,9 @@ echo 1. Collect daily
 echo 2. Collect rep
 echo 3. Get cookies
 echo 4. XP and Credits farmer (it just send random messages)
-echo 5. Transfer all the money to your account (take long, a little less than 10 sec per account)
-echo 6. Make the tokens join a server (not working, use raid toolbox to make them join)
+echo 5. Get the daily directly on your main accout (you will gain way more but higher risk of bot detection)
+echo 6. Transfer all the money to your account (take long, a little less than 10 sec per account)
+echo 7. Make the tokens join a server (not working, use raid toolbox to make them join)
 echo.
 set /P what=type the number of the method you want: 
 if %what% EQU 0 goto mainmenu
@@ -54,8 +107,9 @@ if %what% EQU 1 goto epicdaily
 if %what% EQU 2 goto epicrep
 if %what% EQU 3 goto epiccookies
 if %what% EQU 4 goto epicmsgfarmbots
-if %what% EQU 5 goto epicmoney
-if %what% EQU 6 goto joinserver
+if %what% EQU 5 goto epicdailydirect
+if %what% EQU 6 goto epicmoney
+if %what% EQU 7 goto joinserver
 cls
 echo invalid value :/
 Timeout /T 2 > NUL
@@ -76,6 +130,10 @@ goto choosemethod
 
 :epicmsgfarmbots:
 start cmd /K "%cd%\Scripts\XPcreditsfarmbots.bat" %userid% %channelid% %pythonexe%
+goto choosemethod
+
+:epicdailydirect:
+start /wait /min python "%cd%\Scripts\Dailydirectlauncher.py" %userid% %channelid% %pythonexe%
 goto choosemethod
 
 :epicmoney:
@@ -130,15 +188,16 @@ goto selfbotmenu
 :getepicpets:
 if %wantedpet% EQU None goto nopetslol
 echo.
-echo /!\ THIS WILL REMOVE YOUR CURRENT PET /!\
+echo WARNING
+echo THIS WILL REMOVE YOUR CURRENT PET
 echo if you're fine with that, press any key to continue
 pause > NUL
 start python "%cd%\Scripts\Getepicpets.py" %mytoken% %channelid% "%wantedpet%"
 goto selfbotmenu
 
 :sendcookies:
-if %cookiesendertarget% EQU Prompt goto promptcookie
-if %cookiesendertarget% EQU prompt goto promptcookie
+if /I %cookiesendertarget% EQU Prompt goto promptcookie
+if /I %cookiesenderserver% EQU True goto promptcookieserver
 start cmd /K python "%cd%\Scripts\Selfcookie.py" %mytoken% %channelid% %cookiesendertarget%
 goto selfbotmenu
 
@@ -148,7 +207,18 @@ echo Enter the id of the person to send cookie to
 echo you can also enter "Random" to send cookie to random peoples
 echo.
 set /P cookiesendertargetprompt=Enter the id or Random: 
+if /I %cookiesenderserver% EQU True goto promptcookieserver
 start cmd /K python "%cd%\Scripts\Selfcookie.py" %mytoken% %channelid% %cookiesendertargetprompt%
+goto selfbotmenu
+
+:promptcookieserver:
+echo.
+echo Enter the id of the channel to send the cookies (can be on any server your on)
+echo you can also enter "default" to send cookie to the default text channel in config
+echo.
+set /P channelidcustom=Enter the id or default: 
+if /I %channelidcustom% EQU default start cmd /K python "%cd%\Scripts\Selfcookie.py" %mytoken% %channelid% %cookiesendertargetprompt%
+if /I NOT %channelidcustom% EQU default start cmd /K python "%cd%\Scripts\Selfcookie.py" %mytoken% %channelidcustom% %cookiesendertargetprompt%
 goto selfbotmenu
 
 

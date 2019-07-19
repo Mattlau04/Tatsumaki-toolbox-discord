@@ -18,10 +18,15 @@ totalcommoncatched = 0
 totaluncommoncatched = 0
 totaltrashcatched = 0
 totalrarecatched = 0
+commoncatched = 0
+uncommoncatched = 0
+trashcatched = 0
+rarecatched = 0
 totalstuffcatched = 0
 howmanycommonsell = 0
 howmanyuncommonsell = 0
 howmanytrashsell = 0
+howmanyraresell = 0
 lasterror = "noerror"
 isleeplol = int(random.randint(31,37))
 totalnumberfishing = 0
@@ -58,6 +63,11 @@ async def on_ready():
     global howmanytrashsell
     global howmanycommonsell
     global howmanyuncommonsell
+    global commoncatched
+    global uncommoncatched
+    global trashcatched
+    global rarecatched
+    global howmanyraresell
     txtchan = client.get_channel(int(txtchanid))
     await txtchan.send("t!fish inv")
     await asyncio.sleep(float((str("1.") + str(random.randint(1337,9999)))))
@@ -100,6 +110,7 @@ async def on_ready():
                 print("#=============#")
                 print('')
                 print("Total gain: " + str(cash))
+                print("Total gain if what was caught but wasn't sold yet was sold: " + str(int(commoncatched) * 12 + int(uncommoncatched) * 20 + int(trashcatched) * 6 + int(rarecatched) * 1250 + float(cash)))
                 print('')
                 print("Total number of fishing: " + str(totalnumberfishing))
                 print('')
@@ -112,6 +123,7 @@ async def on_ready():
                 print("Current number of common fish in inventory: " + str(howmanycommonsell))
                 print("Current number of uncommon fish in inventory: " + str(howmanyuncommonsell))
                 print("Current number of trash items in inventory: " + str(howmanytrashsell))
+                print("Current worth of inventory: " + str(int(howmanycommonsell) * 12 + int(howmanyuncommonsell) * 20 + int(howmanytrashsell) * 6))
                 print('')
                 print("Total common fish catched: " + str(totalcommoncatched) + " [" + str(percentage(totalcommoncatched, totalstuffcatched))[:5] + "%]")
                 print("Total uncommon fish catched: " + str(totaluncommoncatched) + " [" + str(percentage(totaluncommoncatched, totalstuffcatched))[:5] + "%]")
@@ -132,16 +144,19 @@ async def on_ready():
             print("selling common...")
             await txtchan.send("t!fish sell common")
             howmanycommonsell = 0
+            commoncatched = 0
             await asyncio.sleep(float(str(random.randint(6,9)) + "." + str(random.randint(1337,9999))))
         if int(howmanyuncommonsell) >= int(minimumtosell):
             print("selling uncommon...")
             await txtchan.send("t!fish sell uncommon")
             howmanyuncommonsell = 0
+            uncommoncatched = 0
             await asyncio.sleep(float(str(random.randint(6,9)) + "." + str(random.randint(1337,9999))))
         if int(howmanytrashsell) >= int(minimumtosell):
             print("selling garbage...")
             await txtchan.send("t!fish sell garbage")
             howmanytrashsell = 0
+            trashcatched = 0
             await asyncio.sleep(float(str(random.randint(6,9)) + "." + str(random.randint(1337,9999))))
         isleeplol = random.randint(30,35)
         print('')
@@ -157,10 +172,15 @@ async def on_message(message):
     global totaluncommoncatched
     global totaltrashcatched
     global totalrarecatched
+    global commoncatched
+    global uncommoncatched
+    global trashcatched
+    global rarecatched
     global totalstuffcatched
     global howmanytrashsell
     global howmanycommonsell
     global howmanyuncommonsell
+    global howmanyraresell
     global cash
     if message.author.id == 172002275412279296 and str(message.channel.id) == str(txtchanid):
         if "🎣  |  **" + client.user.name + "**, **you can fish again in" in message.content:
@@ -185,19 +205,28 @@ async def on_message(message):
             soldtrashfor = funkynumbertrash[-1]
             totaltrashsold = int(totaltrashsold) + int(lastsoldtrash)
             cash = float(cash) + float(soldtrashfor)
+        if "🎣  |  **" + client.user.name + "**, redeemed rarefish" in message.content and "for 💴" in message.content:
+            funkynumberrare = re.findall('\d+', message.content)
+            soldrarefor = funkynumberrare[-1]
+            cash = float(cash) + float(soldrarefor)
         if "🎣  |  **" + client.user.name + "**, **you caught: " in message.content and "You paid 💴 **10** for casting." in message.content:
             totalstuffcatched = totalstuffcatched + 1
             if "🔋" in message.content or "🔧" in message.content or "👞" in message.content or "📎" in message.content or "🛒" in message.content:
                 totaltrashcatched = totaltrashcatched + 1
+                trashcatched = trashcatched + 1
                 howmanytrashsell = int(howmanytrashsell) + 1
             elif "🐠" in message.content:
                 totaluncommoncatched = totaluncommoncatched + 1
+                uncommoncatched = uncommoncatched + 1
                 howmanyuncommonsell = int(howmanyuncommonsell) + 1
             elif "🐟" in message.content:
                 totalcommoncatched = totalcommoncatched + 1
+                commoncatched = commoncatched + 1
                 howmanycommonsell = int(howmanycommonsell) + 1
             else:
                 totalrarecatched = totalrarecatched + 1
+                rarecatched = rarecatched + 1
+                howmanyraresell = int(howmanyraresell) + 1
         if "🎣  |  **" + client.user.name + "**, displaying fishy inventory:" in message.content:
             funkynumberinvstart = re.findall('\d+', message.content)
             howmanytrashsell = funkynumberinvstart[-1]

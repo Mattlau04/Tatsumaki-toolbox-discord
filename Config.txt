@@ -5,15 +5,18 @@ userid=123456789
 channelid=123456789
 
 #the minimum number of an item you must have for it to be sold
-minimumsellfish=20
+minimumsellfish=900000
 
 #The pet you want in Custom pet getter (names are in pet list.txt)
-wantedpet=None
+wantedpet=Midnight Cat
 
 #The id of the person to send cookie to in cookie sender
 #(set to "Random" to give cookies to random persons)
 #(set to "Prompt" to prompt you when you run the script)
 cookiesendertarget=prompt
+
+#if set to true, it will prompt you for the id of the server to use while usign cookie sender
+cookiesenderserver=TruE
 
 #The token for your main account (to fish and to train your pet)
 mytoken=urtokenhere

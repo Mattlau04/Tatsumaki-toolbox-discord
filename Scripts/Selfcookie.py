@@ -36,8 +36,11 @@ async def on_ready():
             print('')
             print("Number of cookies sent: " + str(sentcookie))
             if idofcookietarget == "random" or idofcookietarget == "Random":
-                print("Next cookies target: " + str(randommember.name))
-                print("Next target id: " + str(randommember.id))
+                try:
+                    print("Next cookies target: " + str(randommember.name))
+                    print("Next target id: " + str(randommember.id))
+                except Exception:
+                    print("Next cookies target: " + str(randommember))
             else:
                 print("Cookies target: " + str(namofcookietarget.name))
                 print("Cookies target id: " + str(idofcookietarget))
