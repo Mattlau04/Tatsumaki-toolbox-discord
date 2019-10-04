@@ -42,9 +42,9 @@ async def on_ready():
         for count in reversed(range(1, waitforhowlong+1)):
             totalcost = int(failnum) * 900
             os.system('cls')
-            print("#=====================#")
-            print("+ Tatsugotchi trainer +")
-            print("#=====================#")
+            print("#===================#")
+            print("+ Custom pet getter +")
+            print("#===================#")
             print('')
             print("Number of attempt: " + str(failnum))
             print("Total cost: " + str(totalcost))
