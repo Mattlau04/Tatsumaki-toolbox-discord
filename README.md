@@ -2,7 +2,7 @@
 /!\ I made this to train on discord.py , but it's against tatsumaki and discord TOS, so use at your own risk
 
 /!\ Tatsumaki will apparently remove credits transfer and daily transfer, so the bot might break and i won't be able to fix it 
-![ded]https://i.imgur.com/Xe33CvZ.png
+![ded](https://i.imgur.com/Xe33CvZ.png)
 
 ## Features:
 
